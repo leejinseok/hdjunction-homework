@@ -1,7 +1,6 @@
 package com.hdjunction.homework.api.presentation.patient.dto;
 
 import com.hdjunction.homework.api.presentation.hospital.dto.HospitalResponse;
-import com.hdjunction.homework.core.db.domain.hospital.Hospital;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +27,7 @@ public class PatientResponse {
                 patient.getRegistrationNumber(),
                 patient.getGenderCode(),
                 patient.getBirth(),
-                patient.getPhoneNumber()
+                patient.getPhoneNumber().format()
         );
     }
 }

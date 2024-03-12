@@ -15,4 +15,8 @@ public class PhoneNumber {
     private String number2;
     private String number3;
 
+    public String format() {
+        return "%s-%s-%s".formatted(number1, number2, number3);
+    }
+
 }

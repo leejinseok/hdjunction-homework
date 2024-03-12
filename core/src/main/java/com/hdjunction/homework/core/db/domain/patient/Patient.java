@@ -40,4 +40,20 @@ public class Patient extends AuditingDomain {
     @Column(length = 20)
     private PhoneNumber phoneNumber;
 
+    public void update(
+            final Hospital hospital,
+            final String name,
+            final String registrationNumber,
+            final String genderCode,
+            final String birth,
+            final PhoneNumber phoneNumber
+    ) {
+        this.hospital = hospital;
+        this.name = name;
+        this.registrationNumber = registrationNumber;
+        this.genderCode = genderCode;
+        this.birth = birth;
+        this.phoneNumber = phoneNumber;
+    }
+
 }
