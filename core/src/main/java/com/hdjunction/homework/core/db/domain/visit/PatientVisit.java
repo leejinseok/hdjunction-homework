@@ -22,19 +22,14 @@ public class PatientVisit {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hospital_id", nullable = false)
+    @JoinColumn(name = "hospital_id", nullable = false, foreignKey = @ForeignKey(name = "fk_patient_visit_1"))
     private Hospital hospital;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id", nullable = false, foreignKey = @ForeignKey(name = "fk_patient_visit_2"))
     private Patient patient;
 
     @Column
     private LocalDateTime receptionDateTime;
-
-    @PrePersist
-    public void prePersist() {
-        receptionDateTime = LocalDateTime.now();
-    }
 
 }

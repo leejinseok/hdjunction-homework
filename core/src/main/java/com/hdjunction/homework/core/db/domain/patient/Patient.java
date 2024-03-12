@@ -20,7 +20,7 @@ public class Patient extends AuditingDomain {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hospital_id", nullable = false)
+    @JoinColumn(name = "hospital_id", nullable = false, foreignKey = @ForeignKey(name = "fk_patient_1"))
     private Hospital hospital;
 
     @Column(length = 45, nullable = false)

@@ -17,7 +17,7 @@ public class Code {
     private String code;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "code_group_id")
+    @JoinColumn(name = "code_group_id", foreignKey = @ForeignKey(name = "fk_code_1"))
     private CodeGroup codeGroup;
 
     @Column(length = 10)
