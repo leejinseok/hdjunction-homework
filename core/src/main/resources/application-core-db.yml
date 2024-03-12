@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    hikari:
+      jdbc-url: jdbc:h2:mem://localhost/~/hdjunction
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+
+
