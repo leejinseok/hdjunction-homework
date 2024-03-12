@@ -19,7 +19,6 @@ public class VisitController {
 
     private final VisitService visitService;
 
-
     @GetMapping
     public ResponseEntity<Page<VisitResponse>> getVisits(@PageableDefault(size = 20, sort = "receptionDateTime,DESC") final Pageable pageable) {
         Page<PatientVisit> visitsPage = visitService.findPage(pageable);
@@ -28,8 +27,6 @@ public class VisitController {
                 .status(HttpStatus.OK)
                 .body(map);
     }
-
-
 
     @GetMapping("/{visitId}")
     public ResponseEntity<VisitResponse> getVisit(@PathVariable final Long visitId) {
@@ -42,8 +39,27 @@ public class VisitController {
 
     @PostMapping
     public ResponseEntity<VisitResponse> saveVisit(@RequestBody final VisitRequest visitRequest) {
-        return null;
+        PatientVisit save = visitService.save(visitRequest);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(VisitResponse.create(save));
     }
 
+    @PatchMapping("/{visitId}")
+    public ResponseEntity<VisitResponse> updateVisit(
+            @PathVariable final Long visitId,
+            @RequestBody final VisitRequest request
+    ) {
+        PatientVisit update = visitService.update(visitId, request);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                VisitResponse.create(update)
+        );
+    }
+
+    @DeleteMapping("/{visitId}")
+    public ResponseEntity<Void> deleteVisit(@PathVariable final Long visitId) {
+        visitService.deleteById(visitId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 }

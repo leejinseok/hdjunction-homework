@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class VisitService {
@@ -49,6 +51,29 @@ public class VisitService {
                 .build();
 
         return patientVisitRepository.save(visit);
-
     }
+
+    @Transactional
+    public void deleteById(final Long visitId) {
+        patientVisitRepository.deleteById(visitId);
+    }
+
+    @Transactional
+    public PatientVisit update(final Long visitId, final VisitRequest request) {
+        PatientVisit patientVisit = findById(visitId);
+
+        long patientId = request.getPatientId();
+        Patient patient = patientRepository.findById(patientId).orElseThrow(() ->
+                new NotFoundException("존재하지 않는 환자입니다. %s".formatted(patientId))
+        );
+        long hospitalId = request.getHospitalId();
+        Hospital hospital = hospitalRepository.findById(hospitalId).orElseThrow(() ->
+                new NotFoundException("존재하지 않는 병원입니다. %s".formatted(hospitalId))
+        );
+        LocalDateTime receptionDateTime = request.getReceptionDateTime();
+
+        patientVisit.update(patient, hospital, receptionDateTime);
+        return patientVisit;
+    }
+
 }

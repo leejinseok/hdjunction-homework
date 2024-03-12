@@ -32,4 +32,10 @@ public class PatientVisit {
     @Column
     private LocalDateTime receptionDateTime;
 
+    public void update(final Patient patient, final Hospital hospital, final LocalDateTime receptionDateTime) {
+        this.patient = patient;
+        this.hospital = hospital;
+        this.receptionDateTime = receptionDateTime;
+    }
+
 }
