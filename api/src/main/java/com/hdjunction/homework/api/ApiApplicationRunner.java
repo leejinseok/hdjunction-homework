@@ -4,6 +4,7 @@ import com.hdjunction.homework.core.db.domain.code.Code;
 import com.hdjunction.homework.core.db.domain.code.CodeGroup;
 import com.hdjunction.homework.core.db.domain.code.CodeGroupRepository;
 import com.hdjunction.homework.core.db.domain.code.CodeRepository;
+import com.hdjunction.homework.core.db.domain.common.PhoneNumber;
 import com.hdjunction.homework.core.db.domain.hospital.Hospital;
 import com.hdjunction.homework.core.db.domain.hospital.HospitalRepository;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
@@ -41,7 +42,13 @@ public class ApiApplicationRunner implements ApplicationRunner {
                 .genderCode("M")
                 .hospital(hospital)
                 .birth("2000-10-01")
-                .phoneNumber("010-1111-2222")
+                .phoneNumber(
+                        PhoneNumber.builder()
+                                .number1("010")
+                                .number2("1111")
+                                .number3("2222")
+                                .build()
+                )
                 .registrationNumber("1004")
                 .build();
 

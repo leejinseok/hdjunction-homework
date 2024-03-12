@@ -1,6 +1,7 @@
 package com.hdjunction.homework.core.db.domain.patient;
 
 import com.hdjunction.homework.core.db.audit.AuditingDomain;
+import com.hdjunction.homework.core.db.domain.common.PhoneNumber;
 import com.hdjunction.homework.core.db.domain.hospital.Hospital;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,8 @@ public class Patient extends AuditingDomain {
     @Column(length = 10)
     private String birth;
 
+    @Embedded
     @Column(length = 20)
-    private String phoneNumber;
+    private PhoneNumber phoneNumber;
 
 }
