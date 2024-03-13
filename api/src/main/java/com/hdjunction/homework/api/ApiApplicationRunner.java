@@ -49,7 +49,7 @@ public class ApiApplicationRunner implements ApplicationRunner {
                                 .number3("2222")
                                 .build()
                 )
-                .registrationNumber("1004")
+                .registrationNumber("20240001")
                 .build();
 
         patientRepository.save(patient);

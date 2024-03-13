@@ -3,16 +3,25 @@ package com.hdjunction.homework.core.db.domain.patient;
 import com.hdjunction.homework.core.db.audit.AuditingDomain;
 import com.hdjunction.homework.core.db.domain.common.PhoneNumber;
 import com.hdjunction.homework.core.db.domain.hospital.Hospital;
+import com.hdjunction.homework.core.db.domain.visit.PatientVisit;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uidx_patient_1", columnNames = {"hospital_id", "registration_number"})
+        }
+)
 @Entity
 public class Patient extends AuditingDomain {
 
@@ -40,17 +49,18 @@ public class Patient extends AuditingDomain {
     @Column(length = 20)
     private PhoneNumber phoneNumber;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    private List<PatientVisit> visits = new ArrayList<>();
+
     public void update(
             final Hospital hospital,
             final String name,
-            final String registrationNumber,
             final String genderCode,
             final String birth,
             final PhoneNumber phoneNumber
     ) {
         this.hospital = hospital;
         this.name = name;
-        this.registrationNumber = registrationNumber;
         this.genderCode = genderCode;
         this.birth = birth;
         this.phoneNumber = phoneNumber;
