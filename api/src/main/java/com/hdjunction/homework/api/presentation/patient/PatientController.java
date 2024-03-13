@@ -4,10 +4,11 @@ import com.hdjunction.homework.api.application.patient.PatientService;
 import com.hdjunction.homework.api.presentation.patient.dto.PatientRequest;
 import com.hdjunction.homework.api.presentation.patient.dto.PatientResponse;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
+import com.hdjunction.homework.core.db.domain.patient.PatientSearchType;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,13 @@ public class PatientController {
     private final PatientService patientService;
 
     @GetMapping
-    public ResponseEntity<Page<PatientResponse>> getAllPatient(@PageableDefault(sort = "createdAt,DESC") final Pageable pageable) {
-        Page<Patient> all = patientService.findAll(pageable);
+    public ResponseEntity<Page<PatientResponse>> getAllPatient(
+            @Parameter(name = "page", example = "0") final int page,
+            @Parameter(name = "size", example = "10") final int size,
+            @Parameter(name = "searchType", example = "NAME") final PatientSearchType searchType,
+            @Parameter(name = "query", example = "김환자") final String query
+    ) {
+        Page<Patient> all = patientService.findAll(searchType, query, PageRequest.of(page, size));
         Page<PatientResponse> map = all.map(PatientResponse::create);
         return ResponseEntity
                 .status(HttpStatus.OK)

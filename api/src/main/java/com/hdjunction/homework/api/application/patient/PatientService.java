@@ -5,7 +5,9 @@ import com.hdjunction.homework.api.presentation.patient.dto.PatientRequest;
 import com.hdjunction.homework.core.db.domain.hospital.Hospital;
 import com.hdjunction.homework.core.db.domain.hospital.HospitalRepository;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
+import com.hdjunction.homework.core.db.domain.patient.PatientQueryDslRepository;
 import com.hdjunction.homework.core.db.domain.patient.PatientRepository;
+import com.hdjunction.homework.core.db.domain.patient.PatientSearchType;
 import com.hdjunction.homework.core.db.domain.visit.PatientVisit;
 import com.hdjunction.homework.core.db.domain.visit.PatientVisitRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +24,13 @@ import java.util.List;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final PatientQueryDslRepository patientQueryDslRepository;
     private final PatientVisitRepository patientVisitRepository;
     private final HospitalRepository hospitalRepository;
 
 
-    public Page<Patient> findAll(final Pageable pageable) {
-        return patientRepository.findAll(pageable);
+    public Page<Patient> findAll(final PatientSearchType searchType, final String query, final Pageable pageable) {
+        return patientQueryDslRepository.findAll(searchType, query, pageable);
     }
 
     public Patient findById(Long patientId) {

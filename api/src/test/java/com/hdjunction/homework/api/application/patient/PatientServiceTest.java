@@ -6,7 +6,9 @@ import com.hdjunction.homework.core.db.domain.common.PhoneNumber;
 import com.hdjunction.homework.core.db.domain.hospital.Hospital;
 import com.hdjunction.homework.core.db.domain.hospital.HospitalRepository;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
+import com.hdjunction.homework.core.db.domain.patient.PatientQueryDslRepository;
 import com.hdjunction.homework.core.db.domain.patient.PatientRepository;
+import com.hdjunction.homework.core.db.domain.patient.PatientSearchType;
 import com.hdjunction.homework.core.db.domain.visit.PatientVisit;
 import com.hdjunction.homework.core.db.domain.visit.PatientVisitRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -30,6 +32,9 @@ class PatientServiceTest {
 
     @Autowired
     PatientRepository patientRepository;
+
+    @Autowired
+    PatientQueryDslRepository patientQueryDslRepository;
 
     @Autowired
     PatientVisitRepository patientVisitRepository;
@@ -187,13 +192,26 @@ class PatientServiceTest {
     @Test
     void findAll() {
         PatientService patientService = createService();
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        Page<Patient> all = patientService.findAll(pageRequest);
+        PatientRequest saveRequest = new PatientRequest();
+        saveRequest.setHospitalId(hospitalId);
+        saveRequest.setName("김환자");
+        saveRequest.setBirth("2000-01-01");
+        saveRequest.setGenderCode("M");
+        saveRequest.setPhoneNumber(new PhoneNumber("010", "1111", "2222"));
+        Patient saved = patientService.save(saveRequest);
 
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        Page<Patient> page = patientService.findAll(PatientSearchType.NAME, "김환자", pageRequest);
+
+        assertThat(page.getSize()).isEqualTo(pageRequest.getPageSize());
+        assertThat(page.getNumber()).isEqualTo(pageRequest.getPageNumber());
+        Patient patient = page.getContent().get(0);
+
+        assertThat(patient.getId()).isEqualTo(saved.getId());
     }
 
     PatientService createService() {
-        return new PatientService(patientRepository, patientVisitRepository, hospitalRepository);
+        return new PatientService(patientRepository, patientQueryDslRepository, patientVisitRepository, hospitalRepository);
     }
 
 }
