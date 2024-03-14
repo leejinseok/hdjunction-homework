@@ -4,6 +4,7 @@ import com.hdjunction.homework.core.db.domain.common.PhoneNumber;
 import com.hdjunction.homework.core.db.domain.hospital.Hospital;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PatientFactory {
@@ -34,6 +35,7 @@ public class PatientFactory {
                                 .build()
                 )
                 .registrationNumber("20240001")
+                .recentlyVisitDateTime(LocalDateTime.now())
                 .build();
     }
 

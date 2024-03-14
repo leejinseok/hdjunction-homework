@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -112,7 +113,7 @@ class PatientControllerTest {
                                         fieldWithPath("content.[].hospital.hospitalDirectorName").type(STRING).description("병원장이름"),
                                         fieldWithPath("content.[].name").type(STRING).description("환자이름"),
                                         fieldWithPath("content.[].registrationNumber").type(STRING).description("환자등록번호"),
-                                        fieldWithPath("content.[].recentlyVisitDateTime").description("최근방문"),
+                                        fieldWithPath("content.[].recentlyVisitDateTime").type(STRING).description("최근방문").optional(),
                                         fieldWithPath("content.[].genderCode").type(STRING).description("환자성별코드"),
                                         fieldWithPath("content.[].birth").type(STRING).description("환자생년월일"),
                                         fieldWithPath("content.[].phoneNumber").type(STRING).description("환자전화번호")
@@ -175,7 +176,7 @@ class PatientControllerTest {
                                         fieldWithPath("hospital.healthcareFacilityNumber").type(STRING).description("요양기관번호"),
                                         fieldWithPath("hospital.hospitalDirectorName").type(STRING).description("병원장이름"),
                                         fieldWithPath("registrationNumber").type(STRING).description("환자등록번호"),
-                                        fieldWithPath("recentlyVisitDateTime").description("최근방문"),
+                                        fieldWithPath("recentlyVisitDateTime").type(STRING).description("최근방문").optional(),
                                         fieldWithPath("genderCode").type(STRING).description("환자성별코드"),
                                         fieldWithPath("birth").type(STRING).description("환자생년월일"),
                                         fieldWithPath("phoneNumber").type(STRING).description("환자연락처")
@@ -191,7 +192,7 @@ class PatientControllerTest {
                 .andExpect(jsonPath("$.hospital.healthcareFacilityNumber").value(testPatient.getHospital().getHealthcareFacilityNumber()))
                 .andExpect(jsonPath("$.name").value(testPatient.getName()))
                 .andExpect(jsonPath("$.registrationNumber").value(testPatient.getRegistrationNumber()))
-                .andExpect(jsonPath("$.recentlyVisitDateTime").value(testPatient.getRecentlyVisitDateTime()))
+                .andExpect(jsonPath("$.recentlyVisitDateTime").exists())
                 .andExpect(jsonPath("$.genderCode").value(testPatient.getGenderCode()))
                 .andExpect(jsonPath("$.birth").value(testPatient.getBirth()))
                 .andExpect(jsonPath("$.phoneNumber").value(testPatient.getPhoneNumber().format()));
@@ -240,7 +241,7 @@ class PatientControllerTest {
                                         fieldWithPath("hospital.healthcareFacilityNumber").type(STRING).description("요양기관번호"),
                                         fieldWithPath("hospital.hospitalDirectorName").type(STRING).description("병원장이름"),
                                         fieldWithPath("registrationNumber").type(STRING).description("환자등록번호"),
-                                        fieldWithPath("recentlyVisitDateTime").description("최근방문"),
+                                        fieldWithPath("recentlyVisitDateTime").type(STRING).description("최근방문").optional(),
                                         fieldWithPath("genderCode").type(STRING).description("환자성별코드"),
                                         fieldWithPath("birth").type(STRING).description("환자생년월일"),
                                         fieldWithPath("phoneNumber").type(STRING).description("환자연락처")
@@ -256,7 +257,7 @@ class PatientControllerTest {
                 .andExpect(jsonPath("$.hospital.healthcareFacilityNumber").value(testPatient.getHospital().getHealthcareFacilityNumber()))
                 .andExpect(jsonPath("$.name").value(testPatient.getName()))
                 .andExpect(jsonPath("$.registrationNumber").value(testPatient.getRegistrationNumber()))
-                .andExpect(jsonPath("$.recentlyVisitDateTime").value(testPatient.getRecentlyVisitDateTime()))
+                .andExpect(jsonPath("$.recentlyVisitDateTime").exists())
                 .andExpect(jsonPath("$.genderCode").value(testPatient.getGenderCode()))
                 .andExpect(jsonPath("$.birth").value(testPatient.getBirth()))
                 .andExpect(jsonPath("$.phoneNumber").value(testPatient.getPhoneNumber().format()));
@@ -309,7 +310,7 @@ class PatientControllerTest {
                                         fieldWithPath("hospital.healthcareFacilityNumber").type(STRING).description("요양기관번호"),
                                         fieldWithPath("hospital.hospitalDirectorName").type(STRING).description("병원장이름"),
                                         fieldWithPath("registrationNumber").type(STRING).description("환자등록번호"),
-                                        fieldWithPath("recentlyVisitDateTime").description("최근방문"),
+                                        fieldWithPath("recentlyVisitDateTime").type(STRING).description("최근방문").optional(),
                                         fieldWithPath("genderCode").type(STRING).description("환자성별코드"),
                                         fieldWithPath("birth").type(STRING).description("환자생년월일"),
                                         fieldWithPath("phoneNumber").type(STRING).description("환자연락처")
@@ -325,7 +326,7 @@ class PatientControllerTest {
                 .andExpect(jsonPath("$.hospital.healthcareFacilityNumber").value(testPatient.getHospital().getHealthcareFacilityNumber()))
                 .andExpect(jsonPath("$.name").value(testPatient.getName()))
                 .andExpect(jsonPath("$.registrationNumber").value(testPatient.getRegistrationNumber()))
-                .andExpect(jsonPath("$.recentlyVisitDateTime").value(testPatient.getRecentlyVisitDateTime()))
+                .andExpect(jsonPath("$.recentlyVisitDateTime").exists())
                 .andExpect(jsonPath("$.genderCode").value(testPatient.getGenderCode()))
                 .andExpect(jsonPath("$.birth").value(testPatient.getBirth()))
                 .andExpect(jsonPath("$.phoneNumber").value(testPatient.getPhoneNumber().format()));

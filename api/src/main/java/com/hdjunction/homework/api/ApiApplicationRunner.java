@@ -15,6 +15,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class ApiApplicationRunner implements ApplicationRunner {
@@ -42,6 +44,7 @@ public class ApiApplicationRunner implements ApplicationRunner {
                 .genderCode("M")
                 .hospital(hospital)
                 .birth("2000-10-01")
+                .recentlyVisitDateTime(LocalDateTime.now())
                 .phoneNumber(
                         PhoneNumber.builder()
                                 .number1("010")
