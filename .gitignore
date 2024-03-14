@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Custom
+api/src/main/resources/static/docs/index.html

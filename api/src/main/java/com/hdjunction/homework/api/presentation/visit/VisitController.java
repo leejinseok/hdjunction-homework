@@ -7,6 +7,7 @@ import com.hdjunction.homework.core.db.domain.visit.PatientVisit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class VisitController {
     private final VisitService visitService;
 
     @GetMapping
-    public ResponseEntity<Page<VisitResponse>> getVisits(@PageableDefault(size = 20, sort = "receptionDateTime,DESC") final Pageable pageable) {
+    public ResponseEntity<Page<VisitResponse>> getVisits(@PageableDefault(size = 20, sort = "receptionDateTime", direction = Sort.Direction.DESC) final Pageable pageable) {
         Page<PatientVisit> visitsPage = visitService.findPage(pageable);
         Page<VisitResponse> map = visitsPage.map(VisitResponse::create);
         return ResponseEntity

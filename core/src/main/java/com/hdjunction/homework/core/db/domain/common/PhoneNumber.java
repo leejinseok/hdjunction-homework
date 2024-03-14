@@ -3,12 +3,14 @@ package com.hdjunction.homework.core.db.domain.common;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
+@Getter
 public class PhoneNumber {
 
     private String number1;
