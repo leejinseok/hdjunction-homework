@@ -3,7 +3,6 @@ package com.hdjunction.homework.api.presentation.patient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hdjunction.homework.api.application.patient.PatientService;
 import com.hdjunction.homework.api.config.ApiSecurityConfig;
-import com.hdjunction.homework.api.presentation.common.HelloController;
 import com.hdjunction.homework.api.presentation.patient.dto.PatientRequest;
 import com.hdjunction.homework.core.db.domain.common.PhoneNumber;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
@@ -43,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest(controllers = {PatientController.class, HelloController.class})
+@WebMvcTest(controllers = {PatientController.class})
 @ExtendWith(RestDocumentationExtension.class)
 @Import({ApiSecurityConfig.class})
 class PatientControllerTest {

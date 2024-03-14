@@ -7,7 +7,9 @@ import com.hdjunction.homework.core.db.domain.hospital.HospitalRepository;
 import com.hdjunction.homework.core.db.domain.patient.Patient;
 import com.hdjunction.homework.core.db.domain.patient.PatientRepository;
 import com.hdjunction.homework.core.db.domain.visit.PatientVisit;
+import com.hdjunction.homework.core.db.domain.visit.PatientVisitQueryDslRepository;
 import com.hdjunction.homework.core.db.domain.visit.PatientVisitRepository;
+import com.hdjunction.homework.core.db.domain.visit.PatientVisitSearchType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,11 +23,12 @@ import java.time.LocalDateTime;
 public class VisitService {
 
     private final PatientVisitRepository patientVisitRepository;
+    private final PatientVisitQueryDslRepository patientVisitQueryDslRepository;
     private final PatientRepository patientRepository;
     private final HospitalRepository hospitalRepository;
 
-    public Page<PatientVisit> findPage(final Pageable pageable) {
-        return patientVisitRepository.findAll(pageable);
+    public Page<PatientVisit> findPage(final PatientVisitSearchType searchType, final String query, final Pageable pageable) {
+        return patientVisitQueryDslRepository.findAll(searchType, query, pageable);
     }
 
     public PatientVisit findById(final Long id) {

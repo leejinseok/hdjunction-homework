@@ -23,7 +23,7 @@ public class VisitResponse {
         return VisitResponse.of(
                 visit.getId(),
                 HospitalResponse.create(visit.getHospital()),
-                PatientResponse.create(visit.getPatient()),
+                PatientResponse.createWithOutHospital(visit.getPatient()),
                 visit.getReceptionDateTime()
         );
     }

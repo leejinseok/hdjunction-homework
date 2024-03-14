@@ -22,7 +22,6 @@ public class PatientController {
 
     @GetMapping
     public ResponseEntity<Page<PatientResponse>> getAllPatient(
-
             @Parameter(name = "page", example = "0") @RequestParam(defaultValue = "0") final Integer page,
             @Parameter(name = "size", example = "10") @RequestParam(defaultValue = "10") final Integer size,
             @Parameter(name = "searchType", example = "NAME") final PatientSearchType searchType,

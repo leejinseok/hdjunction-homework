@@ -4,11 +4,11 @@ import com.hdjunction.homework.api.application.visit.VisitService;
 import com.hdjunction.homework.api.presentation.visit.dto.VisitRequest;
 import com.hdjunction.homework.api.presentation.visit.dto.VisitResponse;
 import com.hdjunction.homework.core.db.domain.visit.PatientVisit;
+import com.hdjunction.homework.core.db.domain.visit.PatientVisitSearchType;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +21,13 @@ public class VisitController {
     private final VisitService visitService;
 
     @GetMapping
-    public ResponseEntity<Page<VisitResponse>> getVisits(@PageableDefault(size = 20, sort = "receptionDateTime", direction = Sort.Direction.DESC) final Pageable pageable) {
-        Page<PatientVisit> visitsPage = visitService.findPage(pageable);
+    public ResponseEntity<Page<VisitResponse>> getVisits(
+            @Parameter(name = "page", example = "0") @RequestParam(defaultValue = "0") final Integer pageNo,
+            @Parameter(name = "size", example = "10") @RequestParam(defaultValue = "10") final Integer pageSize,
+            @Parameter(name = "searchType", example = "PATIENT_ID") final PatientVisitSearchType searchType,
+            @Parameter(name = "query", example = "1") final String query
+    ) {
+        Page<PatientVisit> visitsPage = visitService.findPage(searchType, query, PageRequest.of(pageNo, pageSize));
         Page<VisitResponse> map = visitsPage.map(VisitResponse::create);
         return ResponseEntity
                 .status(HttpStatus.OK)

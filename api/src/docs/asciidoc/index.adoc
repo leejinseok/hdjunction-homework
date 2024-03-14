@@ -9,7 +9,7 @@
 :docinfo: shared                << 추가 (2)
 
 == 1.환자
-=== 1) GET - 환자 페이지 조회
+=== 1) GET - 환자 조회 (페이징)
 include::{snippets}/get_patients/http-request.adoc[]
 include::{snippets}/get_patients/curl-request.adoc[]
 include::{snippets}/get_patients/path-parameters.adoc[]
@@ -17,7 +17,7 @@ include::{snippets}/get_patients/response-body.adoc[]
 include::{snippets}/get_patients/response-fields.adoc[]
 
 
-=== 2) GET - 환자 개별 조회
+=== 2) GET - 환자 조회 (단건)
 include::{snippets}/get_patient_by_id/http-request.adoc[]
 include::{snippets}/get_patient_by_id/curl-request.adoc[]
 include::{snippets}/get_patient_by_id/path-parameters.adoc[]
@@ -45,3 +45,37 @@ include::{snippets}/delete_patient/curl-request.adoc[]
 include::{snippets}/delete_patient/path-parameters.adoc[]
 include::{snippets}/delete_patient/response-body.adoc[]
 
+== 2.환자 방문
+=== 1) GET - 환자 방문정보 조회 (페이징)
+include::{snippets}/get_visits/http-request.adoc[]
+include::{snippets}/get_visits/curl-request.adoc[]
+include::{snippets}/get_visits/path-parameters.adoc[]
+include::{snippets}/get_visits/response-body.adoc[]
+include::{snippets}/get_visits/response-fields.adoc[]
+
+=== 2) GET - 환자 방문정보 조회 (단건)
+include::{snippets}/get_visit/http-request.adoc[]
+include::{snippets}/get_visit/curl-request.adoc[]
+include::{snippets}/get_visit/path-parameters.adoc[]
+include::{snippets}/get_visit/response-body.adoc[]
+include::{snippets}/get_visit/response-fields.adoc[]
+
+=== 3) POST - 환자 방문정보 저장
+include::{snippets}/create_visit/http-request.adoc[]
+include::{snippets}/create_visit/curl-request.adoc[]
+include::{snippets}/create_visit/request-fields.adoc[]
+include::{snippets}/create_visit/response-body.adoc[]
+include::{snippets}/create_visit/response-fields.adoc[]
+
+=== 4) PATCH - 환자 방문정보 수정
+include::{snippets}/update_visit/http-request.adoc[]
+include::{snippets}/update_visit/curl-request.adoc[]
+include::{snippets}/update_visit/path-parameters.adoc[]
+include::{snippets}/update_visit/request-fields.adoc[]
+include::{snippets}/update_visit/response-body.adoc[]
+include::{snippets}/update_visit/response-fields.adoc[]
+
+=== 5) PATCH - 환자 방문정보 삭제
+include::{snippets}/delete_visit/http-request.adoc[]
+include::{snippets}/delete_visit/curl-request.adoc[]
+include::{snippets}/delete_visit/path-parameters.adoc[]
