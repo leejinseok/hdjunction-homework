@@ -1,6 +1,5 @@
 package com.hdjunction.homework.api.application.visit;
 
-import com.hdjunction.homework.api.exception.NotFoundException;
 import com.hdjunction.homework.api.presentation.visit.dto.VisitRequest;
 import com.hdjunction.homework.core.db.domain.hospital.Hospital;
 import com.hdjunction.homework.core.db.domain.hospital.HospitalRepository;
@@ -18,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import static com.hdjunction.homework.api.exception.ExceptionConstants.*;
+import static com.hdjunction.homework.api.exception.NotFoundException.throwNotFoundException;
+
 @Service
 @RequiredArgsConstructor
 public class VisitService {
@@ -32,19 +34,22 @@ public class VisitService {
     }
 
     public PatientVisit findById(final Long id) {
-        return patientVisitRepository.findById(id).orElseThrow(() -> new NotFoundException("존재하지 않는 방문기록입니다."));
+        return patientVisitRepository.findById(id)
+                .orElseThrow(
+                        throwNotFoundException(NO_EXIST_PATIENT_VISIT.formatted(id))
+                );
     }
 
     @Transactional
     public PatientVisit save(final VisitRequest request) {
         long patientId = request.getPatientId();
-        Patient patient = patientRepository.findById(patientId).orElseThrow(() ->
-                new NotFoundException("존재하지 않는 환자입니다. %s".formatted(patientId))
+        Patient patient = patientRepository.findById(patientId).orElseThrow(
+                throwNotFoundException(NO_EXIST_PATIENT.formatted(patientId))
         );
 
         long hospitalId = request.getHospitalId();
-        Hospital hospital = hospitalRepository.findById(hospitalId).orElseThrow(() ->
-                new NotFoundException("존재하지 않는 병원입니다. %s".formatted(hospitalId))
+        Hospital hospital = hospitalRepository.findById(hospitalId).orElseThrow(
+                throwNotFoundException(NO_EXIST_HOSPITAL.formatted(hospitalId))
         );
 
         PatientVisit visit = PatientVisit.builder()
@@ -66,12 +71,13 @@ public class VisitService {
         PatientVisit patientVisit = findById(visitId);
 
         long patientId = request.getPatientId();
-        Patient patient = patientRepository.findById(patientId).orElseThrow(() ->
-                new NotFoundException("존재하지 않는 환자입니다. %s".formatted(patientId))
+        Patient patient = patientRepository.findById(patientId).orElseThrow(
+                throwNotFoundException(NO_EXIST_PATIENT.formatted(patientId))
         );
+
         long hospitalId = request.getHospitalId();
-        Hospital hospital = hospitalRepository.findById(hospitalId).orElseThrow(() ->
-                new NotFoundException("존재하지 않는 병원입니다. %s".formatted(hospitalId))
+        Hospital hospital = hospitalRepository.findById(hospitalId).orElseThrow(
+                throwNotFoundException(NO_EXIST_HOSPITAL.formatted(hospitalId))
         );
         LocalDateTime receptionDateTime = request.getReceptionDateTime();
 
