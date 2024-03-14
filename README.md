@@ -81,6 +81,15 @@ db
 - spring restdocs
 - lombok
 
+
+## 성능 테스트 (locust)
+
+
+![](docs/load-test-stat.png)
+
+![](docs/load-test.png)
+
+
 ## 🏃 Run Application
 테스트 실행
 ```shell
