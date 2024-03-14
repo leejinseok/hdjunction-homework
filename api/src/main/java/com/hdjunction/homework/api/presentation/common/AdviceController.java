@@ -3,12 +3,9 @@ package com.hdjunction.homework.api.presentation.common;
 import com.hdjunction.homework.api.exception.BadRequestException;
 import com.hdjunction.homework.api.exception.NotFoundException;
 import com.hdjunction.homework.api.presentation.common.dto.ErrorResponse;
-import com.hdjunction.homework.api.presentation.common.dto.ValidationErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -34,17 +31,6 @@ public class AdviceController {
     public ResponseEntity<ErrorResponse> handleBadRequestException(final BadRequestException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ErrorResponse.of(e.getMessage()));
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrorResponse> handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
-        ValidationErrorResponse response = new ValidationErrorResponse();
-        for (ObjectError error : e.getBindingResult().getAllErrors()) {
-            response.getErrors().add(error.getDefaultMessage());
-        }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(response);
     }
 
 
