@@ -22,12 +22,12 @@ public class PatientController {
 
     @GetMapping
     public ResponseEntity<Page<PatientResponse>> getAllPatient(
-            @Parameter(name = "page", example = "0") @RequestParam(defaultValue = "0") final Integer page,
-            @Parameter(name = "size", example = "10") @RequestParam(defaultValue = "10") final Integer size,
+            @Parameter(name = "pageNo", example = "0") @RequestParam(defaultValue = "0") final Integer pageNo,
+            @Parameter(name = "pageSize", example = "10") @RequestParam(defaultValue = "10") final Integer pageSize,
             @Parameter(name = "searchType", example = "NAME") final PatientSearchType searchType,
             @Parameter(name = "query", example = "김환자") final String query
     ) {
-        Page<Patient> all = patientService.findAll(searchType, query, PageRequest.of(page, size));
+        Page<Patient> all = patientService.findAll(searchType, query, PageRequest.of(pageNo, pageSize));
         Page<PatientResponse> map = all.map(PatientResponse::create);
         return ResponseEntity
                 .status(HttpStatus.OK)

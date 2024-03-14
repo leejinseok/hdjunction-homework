@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,9 @@ public class Patient extends AuditingDomain {
     @Column(length = 10)
     private String birth;
 
+    @Column
+    private LocalDateTime recentlyVisitDateTime;
+
     @Embedded
     @Column(length = 20)
     private PhoneNumber phoneNumber;
@@ -64,6 +68,10 @@ public class Patient extends AuditingDomain {
         this.genderCode = genderCode;
         this.birth = birth;
         this.phoneNumber = phoneNumber;
+    }
+
+    public void updateRecentlyVisitDateTime(final LocalDateTime recentlyVisitDateTime) {
+        this.recentlyVisitDateTime = recentlyVisitDateTime;
     }
 
 }

@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
@@ -19,6 +21,7 @@ public class PatientResponse {
 
     private String name;
     private String registrationNumber;
+    private LocalDateTime recentlyVisitDateTime;
     private String genderCode;
     private String birth;
     private String phoneNumber;
@@ -29,6 +32,7 @@ public class PatientResponse {
                 HospitalResponse.create(patient.getHospital()),
                 patient.getName(),
                 patient.getRegistrationNumber(),
+                patient.getRecentlyVisitDateTime(),
                 patient.getGenderCode(),
                 patient.getBirth(),
                 patient.getPhoneNumber().format()
@@ -41,6 +45,7 @@ public class PatientResponse {
                 null,
                 patient.getName(),
                 patient.getRegistrationNumber(),
+                patient.getRecentlyVisitDateTime(),
                 patient.getGenderCode(),
                 patient.getBirth(),
                 patient.getPhoneNumber().format()

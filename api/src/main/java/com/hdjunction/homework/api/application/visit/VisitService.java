@@ -57,6 +57,7 @@ public class VisitService {
                 .hospital(hospital)
                 .receptionDateTime(request.getReceptionDateTime())
                 .build();
+        patient.updateRecentlyVisitDateTime(request.getReceptionDateTime());
 
         return patientVisitRepository.save(visit);
     }
