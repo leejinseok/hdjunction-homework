@@ -42,6 +42,15 @@ core 모듈은 만약 이 프로젝트에 batch같은 다른 모듈이 들어온
 java진영의 ORM인 jpa, querydsl을 사용하였다. DB는 로컬테스트가 용이하도록 h2를 사용하였다. <br><br>
 
 
+**rest docs**
+
+스프링 restdocs를 이용하여 api 문서를 생성하였다.
+
+http://localhost:8080/docs/index.html
+
+![](docs/restdocs.png)
+
+
 
 ## 🏛️ Structure
 
